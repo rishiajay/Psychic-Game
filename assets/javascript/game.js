@@ -1,78 +1,95 @@
 // Create a small array
-var letters = ["a", "b", "c"]
-
-//  "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var randomLetter = "";
+var letterChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var wins = 0;
 var losses = 0;
-var guessesLeft = 0;
+var guessesLeft = 9;
 var letterGuesses = [];
-var defaultGuessesLeft = 9;
+var guessesMade = 0;
 
-// window.addEventListener("keypress", onKeyPress, false);
-// newGame();
+// computer guess a letter
+var computerGuess = letterChoices [Math.floor(Math.random() * 25)];
+console.log("Computer guess is " + computerGuess);
 
-      // Create an empty array to hold what the user guesses
-      var userChoiceText = document.getElementById('userchoice-text');
-      var winsText = document.getElementById("wins-text");
-      var lossesText = document.getElementById('losses-text');
-      var guessesLeftText = document.getElementById('guesses-left-text');
-      var guessesSoFarText = document.getElementById('guesses-so-far-text');
-      var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", ];
 
-    winsText.textContent = "Wins: " + wins;
-    lossesText.textContent = "Losses: " + losses;
-    guessesLeftText.textContent = "Guesses Left: " + guessesLeft;
-    guessesSoFarText.textContent = "Your Guesses So Far: " + guessesSoFar;
+// ------------------------------Main Update Loop  --------------
+//  while person still has guess left
+//    that means GuessesLeft > 0 
 
-// Set a limit for the user guesses left and assign that to a variable.
 
-    document.onkeyup = function(event) {
-        // Determines which key was pressed.
-        var userGuess = event.key.toLowerCase;
-            console.log(userGuess);
-        // if (userGuess >= 'a' && userGuess <= 'z') {
-        //   return false;
-        console.log(computerChoices);
-        // }
-        // Randomly chooses a choice from the options array. This is the Computer's guess.
-        guessesLeftText.textContent = userGuess;
+  
+  
+  document.onkeyup = function(event) {
+    console.log("Key Pressed = " + event.key);
+    console.log("GuessesLeft = " + guessesLeft);
 
-        var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-        // Reworked our code from last step to use "else if" instead of lots of if statements.
-        var options = [userGuess >= "a" && userGuess <= "z"];
+  
+    if (event.key === computerGuess) {
+      
+      wins++;
+      letterGuesses = letterGuesses + event.key;
+      computerGuess = letterChoices [Math.floor(Math.random() * 25)];
+      console.log("Computer guess is " + computerGuess);
+    
+    }
+    else {
+    
+      losses++;
+      letterGuesses = letterGuesses + event.key;
+      computerGuess = letterChoices [Math.floor(Math.random() * 25)];
+      console.log("Computer guess is " + computerGuess);
+      
+    }
 
-// We create an if-statement to check if there's a match.
-        
-      // function.onKeyPress(key) {
-      //   if (options.indexOf(userGuess) > -1) {
-         
-      //    if (userGuess === computerGuess) {
-      //     wins ++;
-      //     guessesLeftText = 9;
-      //     letterGuesses = [];
-      //    }
-      //    else if (userGuess != computerGuess) {
-      //    numGuesses --;
-      //    guessChoices.push(userGuess);
-          
-      //   }
 
-      //   else if (numGuesses === 0) {
-      //     guessesLeftText = 9;
-      //     losses ++;
-      //     letterGuesses = [];
-      //   }
-      // }
+  guessesLeft--;
 
-        
-          // Display the user and computer guesses, and wins/losses/ties.
-          userChoiceText.textContent = "You chose: " + userGuess + "";
-          winsText.textContent = "Wins: " + wins + "";
-          lossesText.textContent = "Losses: " + losses + "";
-          guessesLeftText.textContent = "Guesses left: " + numGuesses + "";
-          guessesSoFarText.textContent = "Your guesses so far: "  + guessChoices.Join(", ") + "";
-        }
-      // };
+  ScreenUpdate();
+
+  if (guessesLeft === 0) {
+    reset();
+    ScreenUpdate();
+  } 
+
+
+}
+
+
+
+// ------------Screen view-------------------------
+
+
+
+
+// ----Draw Screen Updated View -----
+
+function ScreenUpdate() {
+
+
+$("#guesses-so-far-text").text("Your Guesses so far: " + letterGuesses);
+$("#wins-text").text("Wins: " + wins);
+$("#guesses-left-text").text("Guesses Left: " + guessesLeft);
+$("#losses-text").text("Losses: " + losses);
+
+}
+
+
+function reset() {
+
+  computerGuess = letterChoices [Math.floor(Math.random() * (25 - 0)) + 0];
+
+  // reset all variable
+
+letterChoices;
+wins = 0;
+losses = 0;
+guessesLeft = 9;
+letterGuesses = [];
+guessesMade = 0;
+
+
+}
+
+
+
 
 
