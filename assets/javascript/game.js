@@ -29,35 +29,30 @@ console.log("Computer guess is " + computerGuess);
       letterGuesses = letterGuesses + event.key;
       computerGuess = letterChoices [Math.floor(Math.random() * 25)];
       console.log("Computer guess is " + computerGuess);
+      reset();
+      ScreenUpdate();
     
     }
     else {
     
-      losses++;
+      // losses++;
       letterGuesses = letterGuesses + event.key;
-      computerGuess = letterChoices [Math.floor(Math.random() * 25)];
+      // computerGuess = letterChoices [Math.floor(Math.random() * 25)];
       console.log("Computer guess is " + computerGuess);
-      
+      guessesLeft--;
+      ScreenUpdate();
+      if (guessesLeft === 0) {
+        losses++
+        reset();
+        ScreenUpdate();
+      } 
+
     }
-
-
-  guessesLeft--;
-
-  ScreenUpdate();
-
-  if (guessesLeft === 0) {
-    reset();
-    ScreenUpdate();
-  } 
-
 
 }
 
 
-
 // ------------Screen view-------------------------
-
-
 
 
 // ----Draw Screen Updated View -----
@@ -75,17 +70,16 @@ $("#losses-text").text("Losses: " + losses);
 
 function reset() {
 
-  computerGuess = letterChoices [Math.floor(Math.random() * (25 - 0)) + 0];
+computerGuess = letterChoices [Math.floor(Math.random() * (25 - 0)) + 0];
 
   // reset all variable
 
 letterChoices;
-wins = 0;
-losses = 0;
+// wins = 0;
+// losses = 0;
 guessesLeft = 9;
 letterGuesses = [];
 guessesMade = 0;
-
 
 }
 
